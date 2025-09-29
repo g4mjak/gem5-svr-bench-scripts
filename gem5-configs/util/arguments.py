@@ -23,8 +23,6 @@
 from gem5.components.processors.cpu_types import CPUTypes
 from gem5.isas import ISA
 
-from .workloads import *
-from .workloads import svr_workloads as wlcfg
 import argparse
 
 
@@ -69,10 +67,7 @@ parser.add_argument(
 
 parser.add_argument(
     "-w","--workload",
-    action="store",
     type=str,
-    default="nodeapp",
-    choices=wlcfg.keys(),
     help="""Specify a workload that should run in the simulator.""",
 )
 

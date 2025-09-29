@@ -66,7 +66,9 @@ from util.cache_configs import GNRCacheHierarchy
 
 # requires(isa_required=ISA.X86)
 requires(isa_required=ISA.ARM)
-
+if args.workload not in wlcfg:
+    print(f"Workload {args.workload} not found in workload list. Select from {list(wlcfg.keys())}")
+    exit(1)
 
 spec = args.workload.startswith("5")
 

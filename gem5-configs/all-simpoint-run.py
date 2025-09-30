@@ -152,7 +152,7 @@ else:
         bootloader=obtain_resource("arm64-bootloader"),
         readfile_contents=wlcfg[args.workload]["runscript"](wlcfg[args.workload], 1),
         kernel_args=kernel_args,
-        checkpoint=Path("{}/{}".format(args.checkpoint_dir, args.workload)),
+        checkpoint=Path(f"{args.checkpoint_dir}/{args.workload}/cpt.SimPoint{args.sid}"),
     )
 
 

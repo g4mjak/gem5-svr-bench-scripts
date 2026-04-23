@@ -53,3 +53,6 @@ client/output
 image/tmp
 
 results.csv
+
+gem5-configs/conf-configs
+temp*

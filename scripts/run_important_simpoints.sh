@@ -3,8 +3,8 @@
 set -x
 
 
-GEM5=/home/david/g5/tmp/gem5-neel/build/ARM/gem5.opt
-CONFIG=./gem5-configs/all-simpoint-run.py
+GEM5=/workspaces/gem5-fdp/build/ARM/gem5.opt
+CONFIG=/workspaces/gem5-fdp/gem5-svr-bench/gem5-configs/all-simpoint-run.py
 
 SIMPOINT_SPEC=/share/david/spec/arm64/simpoints_200M_v2/
 CHECKPOINT_SPEC=/share/david/spec/arm64/checkpoints_200M_v2/
@@ -60,8 +60,11 @@ simpoints["renaissance-http"]=1
 simpoints["renaissance-chirper"]=3
 
 
+EXPERIMENT=exp
 
-EXPERIMENT="exp1"
+
+
+
 
 # ---------------------
 
@@ -90,7 +93,9 @@ fi
 PGROUP="$ARCH-$EXPERIMENT"
 
 
-pueue group add -p 100 "$PGROUP" || true
+if ! pueue group | grep -q "$PGROUP"; then
+  pueue group add -p 10 "$PGROUP"
+fi
 sudo chown $(id -u) /dev/kvm
 
 
@@ -106,7 +111,7 @@ for bm in "${BMS[@]}"; do
     fi
 
 
-    RESDIR=${RESULTS_DIR}/$bm/
+	RESDIR=${RESULTS_DIR}/$bm/
 
     mkdir -p $RESDIR
 

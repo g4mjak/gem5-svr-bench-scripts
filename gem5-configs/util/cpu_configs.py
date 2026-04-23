@@ -27,7 +27,7 @@ from m5.objects import (
     SimpleBTB,
     TAGE_SC_L_64KB,
     TAGE_SC_L_TAGE_64KB,
-    ITTAGE,
+    #ITTAGE,
     BranchPredictor,
 )
 from m5.objects.FuncUnit import *
@@ -77,7 +77,7 @@ def config_GNR(cpu, fdp=True, factor=1, width=8):
     """
 
     # Pipeline delays
-    cpu.fetchToDecodeDelay = 3
+    cpu.fetchToDecodeDelay = 8
     cpu.decodeToRenameDelay = 2
     cpu.renameToIEWDelay = 3
     cpu.issueToExecuteDelay = 1
@@ -110,7 +110,7 @@ def config_GNR(cpu, fdp=True, factor=1, width=8):
     # Set size if relevant buffers
     cpu.numFTQEntries = 16 * factor
     cpu.numROBEntries = 576 * factor
-    cpu.numIQEntries = 576 * factor
+    cpu.instQueues[0].numEntries = 576 * factor
     cpu.LQEntries = 189 * factor
     cpu.SQEntries = 120 * factor
     cpu.LFSTSize = 1024 * factor
@@ -193,7 +193,7 @@ class BPTageSCL(BranchPredictor):
             self.conditionalBranchPred = TAGE_SC_L_64KB()
 
     instShiftAmt = 2
-    indirectBranchPred = ITTAGE()
+    #indirectBranchPred = ITTAGE()
     requiresBTBHit = True
     updateBTBAtSquash = True
 
@@ -250,10 +250,15 @@ class S_RdWrPort(RdWrPort):
         super().__init__()
         self.count = 8 * factor
 
-class S_IprPort(IprPort):
+class S_System_Unit(System_Unit):
     def __init__(self, factor):
         super().__init__()
         self.count = 1 * factor
+
+#class S_IprPort(IprPort):
+#    def __init__(self, factor):
+#        super().__init__()
+#        self.count = 1 * factor
 
 class S_FUPool(FUPool):
     def __init__(self, factor=1):
@@ -269,7 +274,7 @@ class S_FUPool(FUPool):
             S_PredALU(factor=factor),
             S_WritePort(factor=factor),
             S_RdWrPort(factor=factor),
-            S_IprPort(factor=factor),
+            S_System_Unit(factor=factor),
         ]
 #-----------------------------------------------
 #-----------------------------------------------#

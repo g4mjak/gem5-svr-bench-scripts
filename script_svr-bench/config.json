@@ -1,0 +1,63 @@
+{
+    "script_file": "../scripts/run_important_simpoints.sh",
+    "config_file": "../gem5-configs/all-simpoint-run.py",
+    "configs_path": "../gem5-configs/conf-configs",
+    "stats_file": "stats.txt",
+    "min-confidence": 2,
+    "max-confidence": 31,
+    "confidence": [
+        2,
+        4,
+        6,
+        8,
+        12,
+        16,
+        24,
+        32,
+        40,
+        50,
+        60,
+        75,
+        100,
+        125,
+        150,
+        175,
+        200
+    ],
+    "bms": [
+        "nodeapp",
+        "mediawiki",
+        "compression",
+        "dacapo-spring",
+        "dacapo-luindex",
+        "dacapo-lusearch",
+        "renaissance-http",
+        "renaissance-chirper",
+        "502.gcc_r.gcc-pp.opts-O3_-finline-limit_36000",
+        "505.mcf_r.inp",
+        "523.xalancbmk_r.xalanc",
+        "531.deepsjeng_r.ref",
+        "541.leela_r.ref"
+    ],
+    "experiment": "criticalLoad_0",
+    "stats": {
+        "ipc": "ipc",
+        "coverage": "valuePred.predCoverage",
+        "accuracy": "valuePred.accuracy",
+        "penalty_total": "valuePred.totalPenaltyCycles",
+        "savings_total": "valuePred.totalSavedCycles",
+        "pdfs": {
+            "penalty_lin": "valuePred.penaltyCycles::",
+            "savings_lin": "valuePred.valuePredSavedCycles::",
+            "penalty_log": "valuePred.penaltyCyclesLog2::",
+            "savings_log": "valuePred.valuePredSavedCyclesLog2::"
+        }
+    },
+    "stats_prefix": {
+        "multicore": "board.processor.cores1.core.",
+        "singlecore": "board.processor.cores.core."
+    },
+    "use_stride": false,
+    "result_path": "results/criticalLoad_0/",
+    "stats_path": "../scripts/results/arm64/criticalLoad_0/"
+}

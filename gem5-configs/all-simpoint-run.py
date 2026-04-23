@@ -82,6 +82,12 @@ processor = SimpleProcessor(
 )
 cpu = processor.get_cores()[-1].core
 
+cpu.predictValues = True
+cpu.valuePred.confidence_threshold = 2
+cpu.valuePred.use_stride = False
+cpu.valuePred.confidence_reset_to_zero = True
+
+
 config_GNR(cpu, fdp=args.fdp)
 
 
@@ -165,6 +171,7 @@ def workitems(start):
             print("End Invocation ", cnt)
             # m5.stats.dump()
             # m5.stats.reset()
+            
             cnt += 1
         yield False
 
@@ -173,6 +180,7 @@ def runSimpoint():
     while True:
         if warmed_up:
             print("end of SimPoint interval")
+            cpu.valuePred.dump_and_reset("load_stats.csv")
             yield True
         else:
             print("end of warmup, starting to simulate SimPoint")
@@ -184,6 +192,7 @@ def runSimpoint():
             )
             m5.stats.dump()
             m5.stats.reset()
+            cpu.valuePred.dump_and_reset("load_stats.csv")
             yield False
 
 

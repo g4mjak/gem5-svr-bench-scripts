@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-lines=12
+lines=13
 status
 sleep 5
 printf "\033[?25l"
